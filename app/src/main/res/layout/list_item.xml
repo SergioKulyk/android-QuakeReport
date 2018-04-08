@@ -8,21 +8,21 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/mag_text_view"
+        android:id="@+id/magnitude"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:text="8.9" />
 
     <TextView
-        android:id="@+id/place_text_view"
+        android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         tools:text="San Francisco" />
 
     <TextView
-        android:id="@+id/time_text_view"
+        android:id="@+id/date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
