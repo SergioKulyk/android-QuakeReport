@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * {@link ReportAdapter} is an {@link ArrayAdapter} that can provide the layout for each list item
@@ -53,7 +54,7 @@ public class ReportAdapter extends ArrayAdapter<Report> {
         // Find the TextView in the list_item.xml with ID mag_text_view.
 
         // Pattern for create an output format.
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.ENGLISH);
 
         // Find the TextView in the list_item.xml with ID time_text_view.
         TextView timeTextView = reportView.findViewById(R.id.time_text_view);
