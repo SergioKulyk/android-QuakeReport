@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -47,10 +48,12 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Get the {@link Report} object located at this position in the list.
         Earthquake currentEarthquake = getItem(position);
 
-        // Find the TextView in the list_item.xml with ID mag_text_view.
+        // Find the TextView in the list_item.xml with ID magnitude.
         TextView magnitudeTextView = reportView.findViewById(R.id.magnitude);
+        // Format the magnitude to show 1 decimal place.
+        String formattedMagnitude = formatMagnitude(currentEarthquake.getMagnitude());
         // Display current magnitude of the earthquake.
-        magnitudeTextView.setText(currentEarthquake.getMagnitude());
+        magnitudeTextView.setText(formattedMagnitude);
 
         // Get the location of the current earthquake.
         String originalLocation = currentEarthquake.getLocation();
@@ -78,12 +81,12 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
             primaryLocation = originalLocation;
         }
 
-        // Find the TextView in the list_item.xml with ID mag_text_view.
+        // Find the TextView in the list_item.xml with ID location_offset.
         TextView locationOffsetView = reportView.findViewById(R.id.location_offset);
         // Display current location offset of the earthquake.
         locationOffsetView.setText(locationOffset);
 
-        // Find the TextView in the list_item.xml with ID location_text_view.
+        // Find the TextView in the list_item.xml with ID primary_location.
         TextView primaryLocationView = reportView.findViewById(R.id.primary_location);
         // Display current primary location of the earthquake.
         primaryLocationView.setText(primaryLocation);
@@ -122,5 +125,14 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private String formatTime(Date dateObject) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("h:m a", Locale.ENGLISH);
         return dateFormat.format(dateObject);
+    }
+
+    /**
+     * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2")
+     * from a decimal magnitude value.
+     */
+    private String formatMagnitude(double magnitude) {
+        DecimalFormat magnitudeFormat = new DecimalFormat ("0.0");
+        return magnitudeFormat.format(magnitude);
     }
 }

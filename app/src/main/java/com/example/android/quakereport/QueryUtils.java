@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -61,8 +62,10 @@ public final class QueryUtils {
                 // Extract the JSONObject associated with the key "properties" of the earthquake
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-                // Extract the value for key called "mag".
-                String magnitude = String.valueOf(properties.getDouble("mag"));
+
+                // Extract the value for the key called "mag".
+                double magnitude = properties.getDouble("mag");
+
                 // Extract the value for key called "place".
                 String location = String.valueOf(properties.getString("place"));
                 // Extract the value for the key called "time"
