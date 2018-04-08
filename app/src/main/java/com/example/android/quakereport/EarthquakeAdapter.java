@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * {@link EarthquakeAdapter} is an {@link ArrayAdapter} that can provide the layout for each list item
@@ -63,7 +64,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         // Find the TextView in the list_item.xml with ID time.
         TextView timeTextView = reportView.findViewById(R.id.time);
         // Format the date string (i.e. "Mar 3, 1984").
-        String formattedTime = formatterDate(dateObject);
+        String formattedTime = formatTime(dateObject);
         // Display current date of the earthquake.
         timeTextView.setText(formattedTime);
 
@@ -74,15 +75,15 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
     private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        return dateFormat.format(dateFormat);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy", Locale.ENGLISH);
+        return dateFormat.format(dateObject);
     }
 
     /**
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
-    private String formatterDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("H:m a");
-        return dateFormat.format(dateFormat);
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("h:m a", Locale.ENGLISH);
+        return dateFormat.format(dateObject);
     }
 }
