@@ -21,6 +21,12 @@ import java.util.Locale;
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
     /**
+     * Separator for separate location string "94km SSE of Taron, Papua New Guinea"
+     * onto "94km SSE of Taron" and "Papua New Guinea"
+     */
+    private static final String LOCATION_SEPARATOR = " of ";
+
+    /**
      * Create a new {@link EarthquakeAdapter} object.
      *
      * @param context is the current context (i.e. Activity) that the adapter is being created in.
@@ -39,20 +45,51 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                 R.layout.list_item, parent, false);
 
         // Get the {@link Report} object located at this position in the list.
-        Earthquake earthquake = getItem(position);
+        Earthquake currentEarthquake = getItem(position);
 
         // Find the TextView in the list_item.xml with ID mag_text_view.
-        TextView magTextView = reportView.findViewById(R.id.magnitude);
+        TextView magnitudeTextView = reportView.findViewById(R.id.magnitude);
         // Display current magnitude of the earthquake.
-        magTextView.setText(earthquake.getMagnitude());
+        magnitudeTextView.setText(currentEarthquake.getMagnitude());
+
+        // Get the location of the current earthquake.
+        String originalLocation = currentEarthquake.getLocation();
+
+        // Offset location of the current earthquake.
+        String locationOffset;
+        // Primary location of the current earthquake.
+        String primaryLocation;
+
+        if (originalLocation.contains(LOCATION_SEPARATOR)) {
+            // Split by "of" characters and create location array which contains 2 parts.
+            // First item is responsible for length of kilometers between the city and current earthquake.
+            // Second item is responsible for name of the city, nearest whom the earthquake happened.
+            String[] parts = originalLocation.split(LOCATION_SEPARATOR);
+            // Set kilometers between city and earthquake.
+            locationOffset = parts[0] + LOCATION_SEPARATOR;
+            // Set primary location of the earthquake.
+            primaryLocation = parts[1];
+        } else {
+            // Set "Near to" position of earthquake,
+            // because earthquake was in or near the city.
+            locationOffset = getContext().getString(R.string.near_the);
+            // Set primary location of the earthquake,
+            // original location contains only city and country.
+            primaryLocation = originalLocation;
+        }
+
+        // Find the TextView in the list_item.xml with ID mag_text_view.
+        TextView locationOffsetView = reportView.findViewById(R.id.location_offset);
+        // Display current location offset of the earthquake.
+        locationOffsetView.setText(locationOffset);
 
         // Find the TextView in the list_item.xml with ID location_text_view.
-        TextView placeTextView = reportView.findViewById(R.id.location);
-        // Display current location of the earthquake.
-        placeTextView.setText(earthquake.getLocation());
+        TextView primaryLocationView = reportView.findViewById(R.id.primary_location);
+        // Display current primary location of the earthquake.
+        primaryLocationView.setText(primaryLocation);
 
         // Create a new Date object from the time in milliseconds of the earthquake
-        Date dateObject = new Date(earthquake.getTimeInMilliseconds());
+        Date dateObject = new Date(currentEarthquake.getTimeInMilliseconds());
 
         // Find the TextView in the list_item.xml with ID date.
         TextView dateTextView = reportView.findViewById(R.id.date);
