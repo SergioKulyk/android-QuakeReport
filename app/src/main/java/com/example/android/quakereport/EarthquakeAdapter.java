@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,23 +38,51 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
                 R.layout.list_item, parent, false);
 
         // Get the {@link Report} object located at this position in the list.
-        Earthquake report = getItem(position);
+        Earthquake earthquake = getItem(position);
 
         // Find the TextView in the list_item.xml with ID mag_text_view.
         TextView magTextView = reportView.findViewById(R.id.magnitude);
         // Display current magnitude of the earthquake.
-        magTextView.setText(report.getMagnitude());
+        magTextView.setText(earthquake.getMagnitude());
 
         // Find the TextView in the list_item.xml with ID location_text_view.
         TextView placeTextView = reportView.findViewById(R.id.location);
         // Display current location of the earthquake.
-        placeTextView.setText(report.getLocation());
+        placeTextView.setText(earthquake.getLocation());
 
-        // Find the TextView in the list_item.xml with ID time_text_view.
-        TextView timeTextView = reportView.findViewById(R.id.date);
+        // Create a new Date object from the time in milliseconds of the earthquake
+        Date dateObject = new Date(earthquake.getTimeInMilliseconds());
+
+        // Find the TextView in the list_item.xml with ID date.
+        TextView dateTextView = reportView.findViewById(R.id.date);
+        // Format the date string (i.e. "Mar 3, 1984").
+        String formattedDate = formatDate(dateObject);
         // Display current date of the earthquake.
-        timeTextView.setText(report.getDate());
+        dateTextView.setText(formattedDate);
+
+        // Find the TextView in the list_item.xml with ID time.
+        TextView timeTextView = reportView.findViewById(R.id.time);
+        // Format the date string (i.e. "Mar 3, 1984").
+        String formattedTime = formatterDate(dateObject);
+        // Display current date of the earthquake.
+        timeTextView.setText(formattedTime);
 
         return reportView;
+    }
+
+    /**
+     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
+     */
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        return dateFormat.format(dateFormat);
+    }
+
+    /**
+     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
+     */
+    private String formatterDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("H:m a");
+        return dateFormat.format(dateFormat);
     }
 }

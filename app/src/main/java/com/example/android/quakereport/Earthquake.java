@@ -12,20 +12,20 @@ public class Earthquake {
     /** Location of the earthquake */
     private String mLocation;
 
-    /** Date of the earthquake */
-    private String mDate;
+    /** Time of the earthquake */
+    private long mTimeInMilliseconds;
 
     /**
      * Create a new {@link Earthquake} object.
      *
-     * @param mMagnitude is the magnitude (size) the earthquake.
-     * @param mLocation  is the city location of the earthquake.
-     * @param mDate      is the date the earthquake happened.
+     * @param mMagnitude          is the magnitude (size) the earthquake.
+     * @param mLocation           is the city location of the earthquake.
+     * @param mTimeInMilliseconds is the date the earthquake happened.
      */
-    public Earthquake(String mMagnitude, String mLocation, String mDate) {
+    public Earthquake(String mMagnitude, String mLocation, long mTimeInMilliseconds) {
         this.mMagnitude = mMagnitude;
         this.mLocation = mLocation;
-        this.mDate = mDate;
+        this.mTimeInMilliseconds = mTimeInMilliseconds;
     }
 
     /**
@@ -43,9 +43,9 @@ public class Earthquake {
     }
 
     /**
-     * Return the date of the earthquake.
+     * Return the time of the earthquake.
      */
-    public String getDate() {
-        return mDate;
+    public long getTimeInMilliseconds() {
+        return mTimeInMilliseconds;
     }
 }
