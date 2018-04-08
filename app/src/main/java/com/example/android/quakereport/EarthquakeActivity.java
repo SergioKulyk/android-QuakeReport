@@ -17,10 +17,13 @@ package com.example.android.quakereport;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class EarthquakeActivity extends AppCompatActivity {
 
@@ -31,22 +34,30 @@ public class EarthquakeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_activity);
 
+        String mystring = "2018-04-07";
+        Date thedate = null;
+        try {
+            thedate = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(mystring);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         // Create a fake list of earthquake locations.
-        ArrayList<String> earthquakes = new ArrayList<>();
-        earthquakes.add("San Francisco");
-        earthquakes.add("London");
-        earthquakes.add("Tokyo");
-        earthquakes.add("Mexico City");
-        earthquakes.add("Moscow");
-        earthquakes.add("Rio de Janeiro");
-        earthquakes.add("Paris");
+        ArrayList<Report> earthquakes = new ArrayList<>();
+        earthquakes.add(new Report(7.2f, "San Francisco", thedate));
+        earthquakes.add(new Report(6.1f, "London", thedate));
+        earthquakes.add(new Report(3.9f, "Tokyo", thedate));
+        earthquakes.add(new Report(5.4f, "Mexico City", thedate));
+        earthquakes.add(new Report(2.8f, "Moscow", thedate));
+        earthquakes.add(new Report(4.9f, "Rio de Janeiro", thedate));
+        earthquakes.add(new Report(1.6f, "Paris", thedate));
 
         // Find a reference to the {@link ListView} in the layout
-        ListView earthquakeListView = (ListView) findViewById(R.id.list);
+        ListView earthquakeListView = findViewById(R.id.list);
 
         // Create a new {@link ArrayAdapter} of earthquakes
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_list_item_1, earthquakes);
+        ReportAdapter adapter = new ReportAdapter(EarthquakeActivity.this, earthquakes);
+
 
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
