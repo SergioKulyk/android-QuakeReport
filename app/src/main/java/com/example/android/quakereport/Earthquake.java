@@ -15,17 +15,22 @@ public class Earthquake {
     /** Time of the earthquake */
     private long mTimeInMilliseconds;
 
+    /** Website URL of the earthquake */
+    private String mUrl;
+
     /**
      * Create a new {@link Earthquake} object.
      *
-     * @param mMagnitude          is the magnitude (size) the earthquake.
-     * @param mLocation           is the city location of the earthquake.
-     * @param mTimeInMilliseconds is the date the earthquake happened.
+     * @param magnitude          is the magnitude (size) the earthquake.
+     * @param location           is the city location of the earthquake.
+     * @param timeInMilliseconds is the date the earthquake happened.
+     * @param url                is the website url of the earthquake.
      */
-    public Earthquake(double mMagnitude, String mLocation, long mTimeInMilliseconds) {
-        this.mMagnitude = mMagnitude;
-        this.mLocation = mLocation;
-        this.mTimeInMilliseconds = mTimeInMilliseconds;
+    public Earthquake(double magnitude, String location, long timeInMilliseconds, String url) {
+        mMagnitude = magnitude;
+        mLocation = location;
+        mTimeInMilliseconds = timeInMilliseconds;
+        mUrl = url;
     }
 
     /**
@@ -47,5 +52,22 @@ public class Earthquake {
      */
     public long getTimeInMilliseconds() {
         return mTimeInMilliseconds;
+    }
+
+    /**
+     * Return the website URL to find more information about the earthquake.
+     */
+    public String getUrl() {
+        return mUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Earthquake{" +
+                "mMagnitude=" + mMagnitude +
+                ", mLocation='" + mLocation + '\'' +
+                ", mTimeInMilliseconds=" + mTimeInMilliseconds +
+                ", mUrl='" + mUrl + '\'' +
+                '}';
     }
 }

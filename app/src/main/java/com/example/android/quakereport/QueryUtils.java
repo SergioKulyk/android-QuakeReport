@@ -62,17 +62,18 @@ public final class QueryUtils {
                 // Extract the JSONObject associated with the key "properties" of the earthquake
                 JSONObject properties = currentEarthquake.getJSONObject("properties");
 
-
                 // Extract the value for the key called "mag".
                 double magnitude = properties.getDouble("mag");
-
                 // Extract the value for key called "place".
                 String location = String.valueOf(properties.getString("place"));
-                // Extract the value for the key called "time"
+                // Extract the value for the key called "time".
                 long time = properties.getLong("time");
+                // Extract the value for the key called "url".
+                String url = properties.getString("url");
 
-                // Create an {@link Earthquake} object for current earthquake.
-                Earthquake earthquake = new Earthquake(magnitude, location, time);
+                // Create a new {@link Earthquake} object with the magnitude, location, time,
+                // and url from the JSON response.
+                Earthquake earthquake = new Earthquake(magnitude, location, time, url);
                 // Add current earthquake to the list of earthquakes.
                 earthquakes.add(earthquake);
             }
