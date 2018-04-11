@@ -13,15 +13,22 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.Inflater;
 
 /**
  * {@link EarthquakeAdapter} is an {@link ArrayAdapter} that can provide the layout for each list item
  * based on a data source, which is a list of {@link Earthquake} objects.
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+
+    private Inflater inflater;
+
+    /** List of earthquakes which update when we loa new data from the Internet */
+    private List<Earthquake> earthquakes = new ArrayList<>();
 
     /**
      * Separator for separate location string "94km SSE of Taron, Papua New Guinea"
@@ -33,10 +40,11 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
      * Create a new {@link EarthquakeAdapter} object.
      *
      * @param context is the current context (i.e. Activity) that the adapter is being created in.
-     * @param reports is the list of {@link Earthquake}s to be displayed.
+     * @param earthquakes is the list of {@link Earthquake}s to be displayed.
      */
-    public EarthquakeAdapter(@NonNull Context context, @NonNull List<Earthquake> reports) {
-        super(context, 0, reports);
+    public EarthquakeAdapter(@NonNull Context context, @NonNull List<Earthquake> earthquakes) {
+        super(context, 0, earthquakes);
+        this.earthquakes = earthquakes;
     }
 
     @NonNull
@@ -124,6 +132,20 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         return reportView;
     }
 
+    @Override
+    public Earthquake getItem(int position) {
+        return earthquakes.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getCount() {
+        return earthquakes.size();
+    }
 
     /**
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
