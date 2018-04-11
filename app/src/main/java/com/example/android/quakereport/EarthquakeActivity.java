@@ -30,6 +30,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
      * This really only comes into play if you're using multiple loaders.
      */
     private static final int EARTHQUAKE_LOADER_ID = 1;
+
     // Create a new {@link ArrayAdapter} of earthquakes
     private EarthquakeAdapter mAdapter;
 
@@ -83,12 +84,16 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
+        Log.v(LOG_TAG, "Create new loader.");
+
         // Create a new loader for the given URL.
         return new EarthquakeLoader(EarthquakeActivity.this, USGS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+        Log.v(LOG_TAG, "Loader finished it's work.");
+
         // Clear the adapter of previous earthquake data.
         mAdapter.clear();
 
@@ -101,6 +106,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
+        Log.v(LOG_TAG, "Reset loader.");
+
         // Loader reset, so we need to clear out our exciting data.
         mAdapter.clear();
     }

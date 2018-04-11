@@ -177,6 +177,8 @@ public final class QueryUtils {
     }
 
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
+        Log.v(LOG_TAG, "Fetch earthquake data.");
+
         // Create URL object.
         URL url = createUrl(requestUrl);
 
