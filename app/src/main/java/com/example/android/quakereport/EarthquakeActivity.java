@@ -139,9 +139,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         View loadingIndicator = findViewById(R.id.loading_spinner);
         loadingIndicator.setVisibility(View.GONE);
 
-        // Set empty state to display "No earthquakes found."
-        mEmptyStateTextView.setText(R.string.no_earthquake_found);
-
         // Clear the adapter of previous earthquake data.
         mAdapter.clear();
 
