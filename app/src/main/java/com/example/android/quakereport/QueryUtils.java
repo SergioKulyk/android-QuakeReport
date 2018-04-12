@@ -177,6 +177,12 @@ public final class QueryUtils {
     }
 
     public static List<Earthquake> fetchEarthquakeData(String requestUrl) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Log.v(LOG_TAG, "Fetch earthquake data.");
 
         // Create URL object.

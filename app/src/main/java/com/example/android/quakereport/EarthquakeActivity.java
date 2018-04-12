@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
+    /** Loading spinner for loading data from the Internet */
+    private ProgressBar loadingSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +54,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         // Find and set view by id "empty_view".
         mEmptyStateTextView = findViewById(R.id.empty_view);
-        mEmptyStateTextView.setText(R.string.no_earthquake_found);
+//        mEmptyStateTextView.setText(R.string.no_earthquake_found);
 
         // Set empty_view for listView for create
         // an empty page to show there aren't earthquakes.
@@ -66,6 +70,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
+
+        // Find and set view by id "loading_spinner".
+        loadingSpinner = findViewById(R.id.loading_spinner);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -120,6 +127,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             mAdapter.addAll(earthquakes);
         }
 
+        // Set invisible state after trying to load data.
+        loadingSpinner.setVisibility(View.INVISIBLE);
     }
 
     @Override
