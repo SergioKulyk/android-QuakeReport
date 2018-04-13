@@ -4,11 +4,13 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -32,7 +34,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     /** URL for earthquake data from the USGS dataset */
     private static final String USGS_REQUEST_URL =
-            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=0&limit=10";
+            "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     /**
      * Constant value for the earthquake loader ID. We can choose any integer.
@@ -129,8 +131,20 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public Loader<List<Earthquake>> onCreateLoader(int id, Bundle args) {
         Log.v(LOG_TAG, "Create new loader.");
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String minMagnitude = sharedPref.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+        Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "10");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", "time");
+
         // Create a new loader for the given URL.
-        return new EarthquakeLoader(EarthquakeActivity.this, USGS_REQUEST_URL);
+        return new EarthquakeLoader(EarthquakeActivity.this, uriBuilder.toString());
     }
 
     @Override
