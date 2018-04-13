@@ -17,15 +17,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.Inflater;
 
 /**
  * {@link EarthquakeAdapter} is an {@link ArrayAdapter} that can provide the layout for each list item
  * based on a data source, which is a list of {@link Earthquake} objects.
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
-
-    private Inflater inflater;
 
     /** List of earthquakes which update when we loa new data from the Internet */
     private List<Earthquake> earthquakes = new ArrayList<>();

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_title">
 
+    <!-- Contains radio buttons to chose one of them. -->
     <ListPreference
         android:defaultValue="@string/settings_order_by_default"
         android:entries="@array/settings_order_by_labels"
@@ -10,6 +11,7 @@
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label" />
 
+    <!--Edit and store text in decimal value. -->
     <EditTextPreference
         android:defaultValue="@string/settings_min_magnitude_default"
         android:inputType="numberDecimal"

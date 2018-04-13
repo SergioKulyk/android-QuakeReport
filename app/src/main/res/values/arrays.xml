@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Settings labels for setting "Order by". -->
     <string-array name="settings_order_by_labels">
         <item>@string/settings_order_by_magnitude_label</item>
         <item>@string/settings_order_by_most_recent_label</item>
     </string-array>
 
+    <!--Settings values for setting "Order by".-->
     <string-array name="settings_order_by_values">
         <item>@string/settings_order_by_magnitude_value</item>
         <item>@string/settings_order_by_most_recent_value</item>

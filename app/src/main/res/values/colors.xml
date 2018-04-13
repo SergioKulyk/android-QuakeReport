@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Primary color of the app (shown in the app bar) -->
     <color name="colorPrimary">#2B3D4D</color>
 
@@ -37,11 +38,13 @@
     <color name="magnitude9">#D93218</color>
 
     <!-- Magnitude circle color for an earthquake with magnitude over 10 -->
+
     <color name="magnitude10plus">#C03823</color>
-    <!-- Text color for the details of the earthquake in the
-    list item -->
+
+    <!-- Text color for the details of the earthquake in thelist item -->
     <color name="textColorEarthquakeDetails">#B4BAC0</color>
 
     <!-- Text color for the primary location of the earthquake in the list item -->
     <color name="textColorEarthquakeLocation">#2B3D4D</color>
+
 </resources>

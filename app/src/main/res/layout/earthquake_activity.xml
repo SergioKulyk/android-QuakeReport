@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- List of earthquakes. -->
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
@@ -18,6 +19,7 @@
         android:layout_centerInParent="true"
         android:textAppearance="?android:textAppearanceMedium" />
 
+    <!-- Loading spinner for down time when data is loading from the Internet. -->
     <ProgressBar
         android:id="@+id/loading_spinner"
         style="@style/Widget.AppCompat.ProgressBar"

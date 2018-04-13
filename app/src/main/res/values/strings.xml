@@ -13,6 +13,8 @@
      limitations under the License.
 -->
 <resources>
+
+    <!-- App name. -->
     <string name="app_name">Quake Report</string>
 
     <!-- Default text to show with the earthquake location ("Near the Pacific-Antarctic Ridge")
