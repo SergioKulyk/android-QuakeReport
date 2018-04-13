@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,9 +47,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
-    /** Loading spinner for loading data from the Internet */
-    private ProgressBar loadingSpinner;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +73,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Set the adapter on the {@link ListView}
         // so the list can be populated in the user interface
         earthquakeListView.setAdapter(mAdapter);
-
-        // Find and set view by id "loading_spinner".
-        loadingSpinner = findViewById(R.id.loading_spinner);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -132,16 +125,24 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         Log.v(LOG_TAG, "Create new loader.");
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
         String minMagnitude = sharedPref.getString(
                 getString(R.string.settings_min_magnitude_key),
-                getString(R.string.settings_min_magnitude_default));
+                getString(R.string.settings_min_magnitude_default)
+        );
+
+        String orderBy = sharedPref.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendQueryParameter("format", "geojson");
         uriBuilder.appendQueryParameter("limit", "10");
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
-        uriBuilder.appendQueryParameter("orderby", "time");
+        uriBuilder.appendQueryParameter("orderby", orderBy);
 
         // Create a new loader for the given URL.
         return new EarthquakeLoader(EarthquakeActivity.this, uriBuilder.toString());
@@ -150,6 +151,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
         Log.v(LOG_TAG, "Loader finished it's work.");
+
+        mEmptyStateTextView.setText(R.string.no_earthquake_found);
+
 
         // Hide loading indicator because the data has been loaded
         View loadingIndicator = findViewById(R.id.loading_spinner);
